@@ -66,8 +66,27 @@ Edit `.env`:
 ```env
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
 ANTHROPIC_API_KEY=your_anthropic_api_key
-CLAUDE_MODEL=claude-sonnet-4-6-20250514    # optional, defaults to Sonnet
+CLAUDE_MODEL=claude-haiku-4-5-20251001    # optional, see model options below
 ```
+
+**Choosing a model:**
+
+The default model is **Haiku 4.5** — it's fast, affordable, and handles food photo analysis, tool calling, and fitness coaching well. This is the best choice for most users.
+
+If you want more detailed and nuanced responses, you can switch to a more powerful model:
+
+```env
+CLAUDE_MODEL=claude-sonnet-4-6       # better quality, moderate cost
+CLAUDE_MODEL=claude-opus-4-6         # best quality, highest cost
+```
+
+| Model | API ID | Input | Output | Speed |
+| --- | --- | --- | --- | --- |
+| Haiku 4.5 (default) | `claude-haiku-4-5-20251001` | $1/MTok | $5/MTok | Fastest |
+| Sonnet 4.6 | `claude-sonnet-4-6` | $3/MTok | $15/MTok | Fast |
+| Opus 4.6 | `claude-opus-4-6` | $5/MTok | $25/MTok | Moderate |
+
+All models support vision (food photos) and tool use (health log queries).
 
 **Getting your Telegram Bot Token:**
 

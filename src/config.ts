@@ -18,7 +18,7 @@ export const config = {
     "ANTHROPIC_API_KEY",
     "Get one at https://console.anthropic.com/settings/keys",
   ),
-  claudeModel: process.env.CLAUDE_MODEL ?? "claude-sonnet-4-6-20250514",
+  claudeModel: process.env.CLAUDE_MODEL ?? "claude-haiku-4-5-20251001",
   conversationHistoryLimit:
     Number(process.env.CONVERSATION_HISTORY_LIMIT) || 30,
 };

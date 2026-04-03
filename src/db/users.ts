@@ -33,7 +33,7 @@ export function saveUserProfile(
   profile: Record<string, unknown>,
 ): void {
   db.prepare(
-    'UPDATE users SET profile = ?, updated_at = datetime("now") WHERE telegram_id = ?',
+    "UPDATE users SET profile = ?, updated_at = datetime('now') WHERE telegram_id = ?",
   ).run(JSON.stringify(profile), telegramId);
 }
 
