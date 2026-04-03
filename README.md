@@ -88,6 +88,18 @@ CLAUDE_MODEL=claude-opus-4-6         # best quality, highest cost
 
 All models support vision (food photos) and tool use (health log queries).
 
+**Restricting access (optional):**
+
+By default the bot is open to everyone. To make it private and prevent others from using your API credits, set `ALLOWED_USERS` with your Telegram user ID:
+
+```env
+ALLOWED_USERS=123456789
+```
+
+Multiple users can be added with commas: `ALLOWED_USERS=123456789,987654321`
+
+To find your Telegram ID, message `@userinfobot` on Telegram — it will reply with your ID.
+
 **Getting your Telegram Bot Token:**
 
 1. Open Telegram and search for `@BotFather`
