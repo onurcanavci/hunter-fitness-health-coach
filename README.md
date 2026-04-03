@@ -99,11 +99,16 @@ Hunter needs to run continuously to receive Telegram messages. The easiest way i
 
 ### Railway (Recommended)
 
-1. Push your code to GitHub
-2. Go to [railway.app](https://railway.app) and sign in with GitHub
-3. Click **New Project** → **Deploy from GitHub Repo** → select your repo
-4. Add environment variables: `TELEGRAM_BOT_TOKEN` and `ANTHROPIC_API_KEY`
-5. Deploy happens automatically
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/IQa0i-?referralCode=-PJzkP&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
+Click the button above, fill in `TELEGRAM_BOT_TOKEN` and `ANTHROPIC_API_KEY`, and you're done.
+
+Or manually:
+
+1. Go to [railway.app](https://railway.app) and sign in with GitHub
+2. Click **New Project** → **Deploy from GitHub Repo** → select your repo
+3. Add environment variables: `TELEGRAM_BOT_TOKEN` and `ANTHROPIC_API_KEY`
+4. Deploy happens automatically
 
 Railway's free tier ($5/month credit) is more than enough for a personal bot.
 
