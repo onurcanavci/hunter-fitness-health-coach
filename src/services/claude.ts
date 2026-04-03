@@ -3,7 +3,11 @@ import { config } from "../config.js";
 import { buildSystemPrompt } from "../prompts/system.js";
 import { getUserProfile, saveUserProfile } from "../db/users.js";
 import { addMessage, getRecentMessages } from "../db/messages.js";
-import { addHealthLog, HealthLogType } from "../db/health-logs.js";
+import {
+  addHealthLog,
+  queryHealthLogs,
+  HealthLogType,
+} from "../db/health-logs.js";
 
 const anthropic = new Anthropic();
 
@@ -113,6 +117,43 @@ const tools: Anthropic.Tool[] = [
       required: ["type", "summary", "details", "date"],
     },
   },
+  {
+    name: "query_health_logs",
+    description:
+      "Query the user's past health logs. Use this to look up previously logged food, exercise, sleep, blood test results, or any health data. Always use this when the user asks about their past data.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        type: {
+          type: "string",
+          enum: [
+            "food",
+            "exercise",
+            "sleep",
+            "blood_test",
+            "body_metrics",
+            "other",
+          ],
+          description: "Filter by type. Omit to search all types.",
+        },
+        start_date: {
+          type: "string",
+          description:
+            "Start date in YYYY-MM-DD format. Omit for no lower bound.",
+        },
+        end_date: {
+          type: "string",
+          description:
+            "End date in YYYY-MM-DD format. Omit for no upper bound.",
+        },
+        limit: {
+          type: "number",
+          description: "Max number of results to return (default 50).",
+        },
+      },
+      required: [],
+    },
+  },
 ];
 
 type ToolHandler = (
@@ -133,6 +174,28 @@ const toolHandlers: Record<string, ToolHandler> = {
       date: input.date as string,
     });
     return "Health entry logged successfully.";
+  },
+  query_health_logs: (telegramId, input) => {
+    const logs = queryHealthLogs(
+      telegramId,
+      input.type as HealthLogType | undefined,
+      input.start_date as string | undefined,
+      input.end_date as string | undefined,
+      (input.limit as number) ?? 50,
+    );
+    if (logs.length === 0) {
+      return "No health logs found for the given filters.";
+    }
+    return logs
+      .map((log) => {
+        const details = JSON.parse(log.details);
+        const detailStr =
+          Object.keys(details).length > 0
+            ? ` | ${JSON.stringify(details)}`
+            : "";
+        return `[${log.date}] [${log.type.toUpperCase()}] ${log.summary}${detailStr}`;
+      })
+      .join("\n");
   },
 };
 

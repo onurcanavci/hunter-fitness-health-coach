@@ -59,3 +59,32 @@ export function getLogsByDateRange(
     )
     .all(telegramId, startDate, endDate) as HealthLogRow[];
 }
+
+export function queryHealthLogs(
+  telegramId: number,
+  type?: HealthLogType,
+  startDate?: string,
+  endDate?: string,
+  limit = 50,
+): HealthLogRow[] {
+  let sql = "SELECT * FROM health_logs WHERE telegram_id = ?";
+  const params: (string | number)[] = [telegramId];
+
+  if (type) {
+    sql += " AND type = ?";
+    params.push(type);
+  }
+  if (startDate) {
+    sql += " AND date >= ?";
+    params.push(startDate);
+  }
+  if (endDate) {
+    sql += " AND date <= ?";
+    params.push(endDate);
+  }
+
+  sql += " ORDER BY date DESC, created_at DESC LIMIT ?";
+  params.push(limit);
+
+  return db.prepare(sql).all(...params) as HealthLogRow[];
+}

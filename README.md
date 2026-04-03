@@ -18,6 +18,7 @@ So I built Hunter. It started as a personal tool, but I figured if it helps me, 
 - **7-day meal plans** — customized to your calories, macros, and food preferences
 - **Workout programs** — goal-specific training splits with exercises, sets, and reps
 - **Health data tracking** — food, exercise, sleep, and blood test results logged automatically
+- **Health history recall** — ask about any past data (e.g. "how was my blood test?") and Hunter queries your logs automatically
 - **Daily & weekly reports** — summaries with totals, trends, scores, and actionable tips
 - **Blood test analysis** — share lab results for interpretation in context of your lifestyle
 - **Multilingual** — write in any language, Hunter responds in the same language
